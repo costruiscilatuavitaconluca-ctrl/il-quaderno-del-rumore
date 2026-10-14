@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il quaderno del rumore</title>
+<meta name="description" content="Il bonus del libro Meno Rumore in Testa con lo Zen di Yuto Kamiyama: le pagine da stampare per fare le pratiche e 6 sfondi per il telefono.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1426">
+<link rel="icon" href="assets/lanterna.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@400;600;700;800&display=swap">
+<style>
+/* Notte del tempio: cielo stellato in movimento, un quaderno 3D che galleggia,
+   schede che si inclinano col mouse, modulo che si gira come una carta e fuochi d'artificio allo sblocco. */
+:root{
+  --night:#0b1426; --night-2:#111e38; --panel:#16264a; --line:rgba(158,180,224,.18);
+  --cream:#f6ebd9; --cream-soft:#c9c1b3; --muted:#8d97ad;
+  --amber:#f2b35b; --amber-2:#ffcf87; --amber-deep:#c9822e;
+  --error:#ff9b8a;
+  --display:'EB Garamond',Garamond,'Times New Roman',serif;
+  --body:'Mulish',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --radius:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--night);color:var(--cream);font-family:var(--body);font-size:1.0625rem;line-height:1.6;min-height:100vh;overflow-x:clip}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+
+/* ---------- sfondo ---------- */
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(55rem 38rem at 82% -8%,rgba(242,179,91,.16),transparent 60%),
+    radial-gradient(45rem 32rem at -8% 105%,rgba(52,92,160,.35),transparent 62%),
+    linear-gradient(180deg,#0b1426 0%,#0d1830 55%,#0a1222 100%)}
+.page{position:relative;z-index:1}
+.wrap{max-width:72rem;margin:0 auto;padding-inline:clamp(1rem,4vw,2.5rem)}
+
+/* ---------- barra ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.4rem}
+.brand{display:flex;align-items:center;gap:.7rem;color:var(--cream-soft);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.brand img{width:1.5rem;filter:drop-shadow(0 0 10px rgba(242,179,91,.6))}
+.pill{font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--amber-2);border:1px solid rgba(242,179,91,.35);background:rgba(242,179,91,.08);padding:.35rem .8rem;border-radius:999px;white-space:nowrap}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,4rem);align-items:center;padding-block:clamp(1rem,4vw,3rem) clamp(2rem,6vw,5rem)}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.eyebrow::before{content:"";width:2rem;height:1px;background:currentColor}
+h1{font-family:var(--display);font-weight:500;font-size:clamp(2.8rem,6.6vw,5.2rem);line-height:.98;margin:.8rem 0 1.2rem;letter-spacing:-.015em;text-wrap:balance}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--amber-2),var(--amber) 45%,#e38f3a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--cream-soft);max-width:34rem;margin:0 0 1.8rem}
+.lead b{color:var(--cream);font-weight:700}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:center}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;text-decoration:none;color:#1a1408;background:linear-gradient(180deg,var(--amber-2),var(--amber));padding:.9rem 1.3rem;border-radius:12px;box-shadow:0 10px 30px rgba(242,179,91,.25),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .2s,box-shadow .2s}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(242,179,91,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+.trust{display:flex;gap:1.2rem;flex-wrap:wrap;color:var(--muted);font-size:.88rem}
+.trust span{display:inline-flex;align-items:center;gap:.4rem}
+.trust svg{width:1rem;height:1rem;color:var(--amber)}
+
+/* ---------- scena 3D ---------- */
+.scene{position:relative;overflow:visible;contain:layout;height:clamp(25rem,46vw,34rem);perspective:1400px;perspective-origin:50% 40%}
+.rig{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.float{position:absolute;transform-style:preserve-3d;animation:bob 7s ease-in-out infinite}
+/* il quaderno: un parallelepipedo */
+.book{position:absolute;--w:14.5rem;--h:21.75rem;--d:2.1rem;left:50%;top:50%;width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);transform-style:preserve-3d;transform:translateZ(60px) rotateY(-28deg) rotateX(6deg);animation:spin 14s ease-in-out infinite}
+.book .f{position:absolute;backface-visibility:hidden}
+.book .front{inset:0;transform:translateZ(calc(var(--d)/2));border-radius:3px 8px 8px 3px;overflow:hidden;background:#13213d;box-shadow:inset 6px 0 10px rgba(0,0,0,.45)}
+.book .front img{width:100%;height:100%;object-fit:cover}
+.book .front::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 35%,rgba(255,255,255,0) 70%,rgba(255,255,255,.06) 100%)}
+.book .title{position:absolute;left:0;right:0;top:9%;text-align:center;font-family:var(--display);color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.7);padding-inline:1rem}
+.book .title small{display:block;font-family:var(--body);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--amber-2);margin-bottom:.4rem}
+.book .title span{display:block;font-size:1.85rem;line-height:1;font-weight:500}
+.book .title i{display:block;font-size:1.85rem;line-height:1.05;color:var(--amber-2)}
+.book .author{position:absolute;left:0;right:0;bottom:6%;text-align:center;font-family:var(--display);font-size:.9rem;letter-spacing:.12em;color:var(--cream)}
+.book .back{inset:0;transform:rotateY(180deg) translateZ(calc(var(--d)/2));background:#0f1b33;border-radius:8px 3px 3px 8px}
+.book .spine{top:0;left:50%;width:var(--d);height:100%;margin-left:calc(var(--d)/-2);transform:rotateY(-90deg) translateZ(calc(var(--w)/2));background:linear-gradient(90deg,#0c1730,#1c2f57 50%,#0c1730);display:flex;align-items:center;justify-content:center}
+.book .spine b{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:500;font-size:.78rem;letter-spacing:.14em;color:var(--amber-2);white-space:nowrap}
+.book .pages{top:3px;left:50%;width:var(--d);height:calc(100% - 6px);margin-left:calc(var(--d)/-2);transform:rotateY(90deg) translateZ(calc(var(--w)/2 - 3px));background:repeating-linear-gradient(90deg,#efe6d6 0 2px,#d9cfbd 2px 3px)}
+.book .topf{left:0;top:50%;width:calc(100% - 3px);height:var(--d);margin-top:calc(var(--d)/-2);transform:rotateX(90deg) translateZ(calc(var(--h)/2 - 2px));background:repeating-linear-gradient(0deg,#efe6d6 0 2px,#d9cfbd 2px 3px)}
+.book .botf{left:0;top:50%;width:calc(100% - 3px);height:var(--d);margin-top:calc(var(--d)/-2);transform:rotateX(-90deg) translateZ(calc(var(--h)/2 - 2px));background:#d9cfbd}
+.shadow{position:absolute;left:50%;bottom:4%;width:60%;height:2.6rem;margin-left:-30%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(6px);transform:rotateX(80deg);animation:shadow 7s ease-in-out infinite}
+/* fogli e telefono intorno */
+.sheet{width:9.4rem;border-radius:4px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5);background:#fff}
+.s1{left:2%;top:10%;transform:translateZ(-80px) rotateY(18deg) rotateZ(-8deg);animation-delay:-2s}
+.s2{right:0;top:44%;transform:translateZ(-40px) rotateY(-22deg) rotateZ(7deg);animation-delay:-4.5s}
+.phone{right:9%;top:2%;width:5.6rem;padding:.35rem;border-radius:1.1rem;background:linear-gradient(160deg,#2a3550,#0b1222);box-shadow:0 30px 60px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.12);transform:translateZ(140px) rotateY(-16deg) rotateZ(4deg);animation-delay:-1s}
+.phone img{border-radius:.8rem}
+.lantern-glow{position:absolute;left:18%;bottom:12%;width:9rem;height:9rem;border-radius:50%;background:radial-gradient(closest-side,rgba(242,179,91,.45),transparent);filter:blur(8px);transform:translateZ(-120px);animation:flicker 3.2s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes spin{0%,100%{transform:translateZ(60px) rotateY(-28deg) rotateX(6deg)}50%{transform:translateZ(60px) rotateY(-14deg) rotateX(2deg)}}
+@keyframes shadow{0%,100%{opacity:.9;scale:1}50%{opacity:.6;scale:.88}}
+@keyframes flicker{0%,100%{opacity:.85}40%{opacity:.6}60%{opacity:1}}
+
+/* ---------- sezioni ---------- */
+section{padding-block:clamp(2.5rem,6vw,5rem)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,4vw,2.9rem);line-height:1.05;margin:.5rem 0 0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--cream-soft);max-width:28rem}
+
+.main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,5vw,4rem);align-items:start}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;perspective:1000px}
+.tilt{position:relative;transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .25s ease-out,box-shadow .25s}
+.card-i{background:linear-gradient(160deg,rgba(32,52,96,.75),rgba(17,30,56,.85));border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem 1.3rem 1.3rem;box-shadow:0 20px 50px rgba(0,0,0,.35);overflow:hidden}
+.card-i::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(20rem 12rem at var(--mx,50%) var(--my,0%),rgba(242,179,91,.16),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
+.card-i:hover::before{opacity:1}
+.card-i .n{font-family:var(--display);font-size:3.2rem;line-height:.9;color:var(--amber-2);transform:translateZ(40px);display:block;text-shadow:0 6px 24px rgba(242,179,91,.35)}
+.card-i b{display:block;font-size:1.05rem;margin:.7rem 0 .3rem;transform:translateZ(25px)}
+.card-i p{margin:0;color:var(--cream-soft);font-size:.95rem;transform:translateZ(15px)}
+
+.steps{list-style:none;margin:2.4rem 0 0;padding:0;display:grid;gap:1rem}
+.steps li{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:1rem;align-items:start}
+.steps .k{width:2.6rem;height:2.6rem;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#1a1408;background:linear-gradient(180deg,var(--amber-2),var(--amber));box-shadow:0 0 0 6px rgba(242,179,91,.12)}
+.steps b{display:block}
+.steps span{color:var(--cream-soft);font-size:.95rem}
+.note{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem;max-width:40rem}
+
+/* ---------- carta del modulo (si gira in 3D) ---------- */
+.flip-wrap{position:sticky;top:1.5rem;perspective:1600px}
+.flip{display:grid;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.flip.is-open{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;padding:clamp(1.4rem,3vw,2.1rem);
+  background:linear-gradient(170deg,rgba(30,50,94,.92),rgba(14,25,48,.96));border:1px solid rgba(242,179,91,.22);
+  box-shadow:0 40px 90px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset,0 0 80px rgba(242,179,91,.08)}
+.face.back{transform:rotateY(180deg)}
+.face::after{content:"";position:absolute;left:12%;right:12%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,207,135,.7),transparent)}
+.face{position:relative}
+.lock{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.lock .ic{width:2.8rem;height:2.8rem;border-radius:14px;display:grid;place-items:center;background:rgba(242,179,91,.12);border:1px solid rgba(242,179,91,.3);color:var(--amber-2)}
+.lock .ic svg{width:1.4rem;height:1.4rem}
+.face h2{font-size:1.9rem;margin:0}
+.sub{margin:0 0 1.4rem;color:var(--cream-soft);font-size:.98rem}
+form{display:grid;gap:1rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+label{display:grid;gap:.35rem;font-size:.82rem;font-weight:700;letter-spacing:.03em;color:var(--cream)}
+input[type=text],input[type=email]{font:inherit;font-size:1rem;color:var(--cream);background:rgba(8,15,30,.65);border:1px solid rgba(158,180,224,.25);border-radius:12px;padding:.85rem .95rem;width:100%;min-width:0;transition:border-color .2s,box-shadow .2s,background .2s}
+input::placeholder{color:#6f7a93}
+input:focus-visible{outline:none;border-color:var(--amber);box-shadow:0 0 0 4px rgba(242,179,91,.18);background:rgba(8,15,30,.85)}
+input[aria-invalid=true]{border-color:var(--error);box-shadow:0 0 0 4px rgba(255,155,138,.14)}
+.consent{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.65rem;font-weight:400;font-size:.82rem;color:var(--cream-soft);line-height:1.45;align-items:start;letter-spacing:0}
+.consent input{margin-top:.18rem;width:1.1rem;height:1.1rem;accent-color:var(--amber)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.unlock{position:relative;overflow:hidden;font:inherit;font-weight:800;font-size:1.06rem;color:#1a1408;border:0;border-radius:14px;padding:1.05rem 1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.6rem;
+  background:linear-gradient(180deg,var(--amber-2),var(--amber) 55%,var(--amber-deep));
+  box-shadow:0 6px 0 #8e5a1c,0 18px 40px rgba(242,179,91,.3),inset 0 1px 0 rgba(255,255,255,.55);transform:translateY(0);transition:transform .12s,box-shadow .12s,filter .2s}
+.unlock::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
+.unlock:hover{filter:brightness(1.05)}
+.unlock:active{transform:translateY(5px);box-shadow:0 1px 0 #8e5a1c,0 8px 20px rgba(242,179,91,.25),inset 0 1px 0 rgba(255,255,255,.5)}
+.unlock:focus-visible,.open:focus-visible{outline:2px solid var(--cream);outline-offset:4px}
+.unlock[disabled]{cursor:progress;filter:saturate(.7)}
+.unlock svg{width:1.15rem;height:1.15rem}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.spin{width:1rem;height:1rem;border:2px solid rgba(26,20,8,.3);border-top-color:#1a1408;border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.err{color:var(--error);font-size:.9rem;margin:0}
+.privacy{font-size:.78rem;color:var(--cream-soft);line-height:1.5}
+.privacy summary{cursor:pointer;color:var(--cream)}
+.privacy p{margin:.5rem 0 0}
+.secure{display:flex;align-items:center;gap:.45rem;justify-content:center;font-size:.78rem;color:var(--muted)}
+.secure svg{width:.9rem;height:.9rem}
+
+/* retro: sbloccato */
+.done{display:grid;gap:1.1rem;align-content:start}
+.badge{display:inline-flex;align-self:start;justify-self:start;align-items:center;gap:.5rem;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#14301f;background:#9be3b4;padding:.35rem .75rem;border-radius:999px}
+.done h2 em{font-style:italic;color:var(--amber-2)}
+.done p{margin:0;color:var(--cream-soft)}
+.open{display:flex;justify-content:center;align-items:center;gap:.6rem;font-weight:800;color:#1a1408;text-decoration:none;border-radius:14px;padding:1.05rem 1.2rem;word-break:break-word;
+  background:linear-gradient(180deg,var(--amber-2),var(--amber) 55%,var(--amber-deep));box-shadow:0 6px 0 #8e5a1c,0 18px 40px rgba(242,179,91,.3),inset 0 1px 0 rgba(255,255,255,.55);transition:transform .12s}
+.open:hover{transform:translateY(-2px)}
+.open svg{width:1.1rem;height:1.1rem}
+.done ul{margin:0;padding:0;list-style:none;display:grid;gap:.55rem}
+.done li{display:grid;grid-template-columns:1.2rem minmax(0,1fr);gap:.6rem;color:var(--cream-soft);font-size:.93rem}
+.done li::before{content:"✓";color:var(--amber);font-weight:800}
+.again{background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;text-decoration:underline;cursor:pointer;justify-self:center}
+
+footer{position:relative;z-index:1;border-top:1px solid var(--line);margin-top:2rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1.6rem 2.4rem;color:var(--muted);font-size:.82rem}
+
+/* ---------- fuochi d'artificio ---------- */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:50;pointer-events:none}
+.toast{position:fixed;left:50%;top:1.2rem;z-index:60;transform:translate(-50%,-150%);background:rgba(11,20,38,.92);border:1px solid rgba(242,179,91,.4);color:var(--cream);padding:.7rem 1.1rem;border-radius:999px;font-weight:700;font-size:.92rem;box-shadow:0 20px 40px rgba(0,0,0,.4);transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .3s;white-space:nowrap;opacity:0}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ---------- comparsa allo scroll ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .scene{height:24rem;max-width:30rem;width:100%;margin-inline:auto}
+  .main{grid-template-columns:minmax(0,1fr)}
+  .flip-wrap{position:static;order:-1}
+}
+@media (max-width:560px){
+  .book{--w:11rem;--h:16.5rem;--d:1.7rem}
+  .book .title span,.book .title i{font-size:1.4rem}
+  .sheet{width:7rem}.phone{width:4.4rem}
+  .scene{height:20rem}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .row2{grid-template-columns:minmax(0,1fr)}
+  .pill{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="page">
+  <header class="wrap top">
+    <div class="brand"><img src="assets/lanterna.png" alt=""><span>Meno Rumore in Testa con lo Zen</span></div>
+    <span class="pill">Bonus gratuito per i lettori</span>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="reveal">
+        <span class="eyebrow">Il bonus del libro</span>
+        <h1>Il quaderno <em>del rumore</em></h1>
+        <p class="lead">Nel libro trovi spesso la stessa indicazione: <b>prendi il quaderno</b>. Eccolo già pronto, con le pagine da stampare per fare le pratiche, non solo leggerle, e 6 sfondi per il telefono.</p>
+        <div class="cta-row">
+          <a class="btn-ghost" href="#sblocca">Sblocca il quaderno
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+          <div class="trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Gratis</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>PDF da stampare</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Accesso immediato</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene" id="scene" aria-label="Anteprima del quaderno, di due pagine e di uno sfondo per il telefono" role="img">
+        <div class="rig" id="rig">
+          <div class="lantern-glow"></div>
+          <div class="float sheet s1"><img src="assets/pagina-fermo-immagine.jpg" alt="" width="372" height="527"></div>
+          <div class="float sheet s2"><img src="assets/pagina-della-sera.jpg" alt="" width="372" height="527"></div>
+          <div class="float" style="inset:0;animation-delay:-3s">
+            <div class="book">
+              <div class="f front"><img src="assets/copertina-quaderno.jpg" alt="" width="400" height="600">
+                <div class="title"><small>Yuto Kamiyama</small><span>Il quaderno</span><i>del rumore</i></div>
+                <div class="author">Pagine da stampare</div>
+              </div>
+              <div class="f back"></div>
+              <div class="f spine"><b>Il quaderno del rumore</b></div>
+              <div class="f pages"></div>
+              <div class="f topf"></div>
+              <div class="f botf"></div>
+            </div>
+          </div>
+          <div class="float phone"><img src="assets/sfondo-telefono.jpg" alt="" width="236" height="511"></div>
+          <div class="shadow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="wrap" id="sblocca">
+    <div class="main">
+      <div>
+        <div class="sec-head reveal">
+          <div><span class="eyebrow">Cosa ricevi</span><h2>Tutto quello che il libro ti chiede di scrivere</h2></div>
+        </div>
+        <div class="cards">
+          <article class="tilt card-i reveal"><span class="n">14</span><b>Pagine A4 da stampare</b><p>Il diario del rumore di tre giorni, la tabella delle pause, il quarto d'ora delle preoccupazioni, il diario delle previsioni e la rilettura del mese.</p></article>
+          <article class="tilt card-i reveal"><span class="n">4</span><b>Schede da ristampare</b><p>Il fermo immagine per le scene che ripartono, le tre colonne per il peggio, la pagina della sera, i foglietti del comodino per le tre di notte.</p></article>
+          <article class="tilt card-i reveal"><span class="n">1</span><b>Calendario dei segni</b><p>Per la pratica minima, dove le caselle vuote non contano.</p></article>
+          <article class="tilt card-i reveal"><span class="n">6</span><b>Sfondi per il telefono</b><p>Con le frasi del libro da tenere sotto gli occhi durante il giorno: "L'ho lasciata al fiume.", "Tre respiri lenti."</p></article>
+        </div>
+
+        <ol class="steps reveal">
+          <li><span class="k">1</span><div><b>Scrivi nome ed email</b><span>Bastano pochi secondi.</span></div></li>
+          <li><span class="k">2</span><div><b>Clicca "Sblocca il bonus"</b><span>Il link alla cartella compare subito, qui sulla pagina.</span></div></li>
+          <li><span class="k">3</span><div><b>Stampa e comincia stasera</b><span>Anche in bianco e nero va benissimo.</span></div></li>
+        </ol>
+        <p class="note">Il quaderno accompagna il libro <i>Meno Rumore in Testa con lo Zen</i> di Yuto Kamiyama e segue i suoi capitoli. Non sostituisce il parere di un medico o di uno psicologo.</p>
+      </div>
+
+      <div class="flip-wrap">
+        <div class="flip" id="flip">
+          <!-- fronte: modulo -->
+          <div class="face front" id="form-state" aria-labelledby="form-title">
+            <div class="lock">
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <h2 id="form-title">Sblocca il quaderno</h2>
+            </div>
+            <p class="sub">Scrivi nome ed email: il link al bonus compare subito qui.</p>
+            <form id="lead-form" novalidate>
+              <div class="row2">
+                <label for="nome">Nome<input id="nome" name="nome" type="text" autocomplete="given-name" maxlength="80" required></label>
+                <label for="cognome">Cognome<input id="cognome" name="cognome" type="text" autocomplete="family-name" maxlength="80" required></label>
+              </div>
+              <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" maxlength="160" placeholder="nome@esempio.it" required></label>
+              <div class="hp" aria-hidden="true"><label for="website">Sito web<input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+              <label class="consent" for="consenso"><input id="consenso" name="consenso" type="checkbox" required><span>Acconsento all'uso di nome ed email per ricevere il bonus e, occasionalmente, novità legate al libro. Posso chiedere la cancellazione in qualsiasi momento.</span></label>
+              <p class="err" id="err" role="alert" hidden></p>
+              <button type="submit" class="unlock" id="btn">
+                <svg id="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg>
+                <span id="btn-label">Sblocca il bonus</span><span class="spin" id="btn-spin" hidden></span>
+              </button>
+              <div class="secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>Niente spam. I tuoi dati non vengono ceduti a terzi.</div>
+              <details class="privacy">
+                <summary>Come usiamo i tuoi dati</summary>
+                <p>Nome ed email servono a darti accesso al bonus del libro e, se vorrai, a scriverti ogni tanto novità legate al libro e all'autore. Non vengono venduti né ceduti a terzi. Puoi chiederne la modifica o la cancellazione in qualsiasi momento<span id="privacy-contact"></span>.</p>
+              </details>
+            </form>
+          </div>
+
+          <!-- retro: bonus sbloccato -->
+          <div class="face back done" id="done-state" aria-hidden="true" inert>
+            <span class="badge">Sbloccato</span>
+            <h2 tabindex="-1" id="done-title">Ecco il tuo <em>quaderno</em>.</h2>
+            <p>Grazie, <span id="done-name"></span>. Nella cartella trovi il PDF da stampare e i 6 sfondi per il telefono.</p>
+            <a class="open" id="bonus-link" href="#" target="_blank" rel="noopener">Apri la cartella del bonus
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+            <ul>
+              <li>Stampa il quaderno in bianco e nero: va benissimo.</li>
+              <li>Le schede della sera e del fermo immagine si possono ristampare tutte le volte che servono.</li>
+              <li>Salva il link: puoi riaprirlo quando vuoi.</li>
+            </ul>
+            <button type="button" class="again" id="again">Rivedi i fuochi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Yuto Kamiyama</span><span>Il quaderno del rumore · bonus per i lettori</span></div></footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- cielo stellato ---------- */
+  var sky=document.getElementById('sky'), sc=sky.getContext('2d'), stars=[], W=0, H=0, dpr=Math.min(window.devicePixelRatio||1,2);
+  function sizeSky(){W=innerWidth;H=innerHeight;[sky,fx].forEach(function(c){c.width=W*dpr;c.height=H*dpr;});sc.setTransform(dpr,0,0,dpr,0,0);fctx.setTransform(dpr,0,0,dpr,0,0);
+    stars=[];var n=Math.round(W*H/5200);for(var i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,p:Math.random()*Math.PI*2,s:.4+Math.random()*1.2,z:Math.random()});}
+  var fx=document.getElementById('fx'), fctx=fx.getContext('2d');
+  sizeSky(); addEventListener('resize',sizeSky);
+  var scrollY0=0; addEventListener('scroll',function(){scrollY0=scrollY;},{passive:true});
+  function drawSky(t){
+    sc.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){var s=stars[i];var a=.35+.45*Math.sin(t/1000*s.s+s.p);
+      var y=(s.y - scrollY0*(.05+s.z*.15))%H; if(y<0)y+=H;
+      sc.globalAlpha=Math.max(.08,a);sc.fillStyle=s.z>.85?'#ffe2b0':'#e9eefc';sc.beginPath();sc.arc(s.x,y,s.r,0,6.283);sc.fill();}
+    sc.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(drawSky);
+  }
+  requestAnimationFrame(drawSky);
+
+  /* ---------- scena 3D che segue il mouse ---------- */
+  var scene=document.getElementById('scene'), rig=document.getElementById('rig');
+  if(finePointer && !reduce){
+    addEventListener('mousemove',function(e){
+      var x=e.clientX/innerWidth-.5, y=e.clientY/innerHeight-.5;
+      rig.style.setProperty('--ry',(x*22)+'deg'); rig.style.setProperty('--rx',(-y*14)+'deg');
+    });
+  }
+
+  /* ---------- schede con inclinazione 3D ---------- */
+  if(finePointer && !reduce){
+    document.querySelectorAll('.tilt').forEach(function(el){
+      el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();var x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+        el.style.setProperty('--ty',((x-.5)*14)+'deg');el.style.setProperty('--tx',((.5-y)*12)+'deg');
+        el.style.setProperty('--mx',(x*100)+'%');el.style.setProperty('--my',(y*100)+'%');});
+      el.addEventListener('mouseleave',function(){el.style.setProperty('--ty','0deg');el.style.setProperty('--tx','0deg');});
+    });
+  }
+
+  /* ---------- comparsa allo scroll ---------- */
+  var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12}) : null;
+  document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%4*80)+'ms'; if(io)io.observe(el); else el.classList.add('in');});
+
+  /* ---------- fuochi d'artificio ---------- */
+  var parts=[], rockets=[], running=false, endAt=0;
+  var palette=['#ffcf87','#f2b35b','#fff3dc','#9cc3ff','#ff9e6b','#c9a8ff','#9be3b4'];
+  function burst(x,y,color,big){
+    var n=big?160:110, sp=(big?7.2:5.4)*Math.min(1.15,Math.max(.75,W/1200));
+    for(var i=0;i<n;i++){var a=Math.random()*Math.PI*2, v=Math.random()*sp+sp*.25;
+      parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:1,decay:.009+Math.random()*.012,c:Math.random()<.18?'#fff7e6':color,r:Math.random()*2+1.6,tw:Math.random()<.3});}
+    // anello
+    for(var j=0;j<36;j++){var b=j/36*Math.PI*2;parts.push({x:x,y:y,vx:Math.cos(b)*sp*.95,vy:Math.sin(b)*sp*.95,life:1,decay:.014,c:'#fff3dc',r:1.4,tw:false});}
+  }
+  function launch(fromX){
+    var x=fromX!=null?fromX:W*(.15+Math.random()*.7);
+    rockets.push({x:x,y:H+10,vx:(Math.random()-.5)*1.6,vy:-(H*.0105+Math.random()*3.2),ty:H*(.14+Math.random()*.32),c:palette[(Math.random()*palette.length)|0],trail:[]});
+  }
+  function loop(){
+    fctx.globalCompositeOperation='destination-out';fctx.fillStyle='rgba(0,0,0,.28)';fctx.fillRect(0,0,W,H);
+    fctx.globalCompositeOperation='lighter';
+    for(var i=rockets.length-1;i>=0;i--){var r=rockets[i];r.x+=r.vx;r.y+=r.vy;r.vy+=.09;
+      fctx.fillStyle=r.c;fctx.beginPath();fctx.arc(r.x,r.y,2.2,0,6.283);fctx.fill();
+      fctx.fillStyle='rgba(255,220,160,.5)';fctx.beginPath();fctx.arc(r.x-r.vx*2,r.y-r.vy*2,1.4,0,6.283);fctx.fill();
+      if(r.vy>=-1||r.y<=r.ty){burst(r.x,r.y,r.c,Math.random()<.4);rockets.splice(i,1);}}
+    for(var k=parts.length-1;k>=0;k--){var p=parts[k];p.vx*=.982;p.vy=p.vy*.982+.055;p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;
+      if(p.life<=0){parts.splice(k,1);continue;}
+      var al=p.tw?(Math.random()*.7+.3)*p.life:p.life;
+      var rr=p.r*(.6+p.life*.4);fctx.fillStyle=p.c;fctx.globalAlpha=Math.max(0,al*.22);fctx.beginPath();fctx.arc(p.x,p.y,rr*3,0,6.283);fctx.fill();fctx.globalAlpha=Math.max(0,al);fctx.beginPath();fctx.arc(p.x,p.y,rr,0,6.283);fctx.fill();}
+    fctx.globalAlpha=1;
+    if(performance.now()<endAt && Math.random()<.11)launch();
+    if(rockets.length||parts.length||performance.now()<endAt){requestAnimationFrame(loop);}else{running=false;fctx.clearRect(0,0,W,H);}
+  }
+  function fireworks(originEl){
+    if(reduce){return;}
+    var rect=originEl?originEl.getBoundingClientRect():null;
+    endAt=performance.now()+5200;
+    // salve iniziale: una dal bottone e altre sparse
+    if(rect){burst(rect.left+rect.width/2,rect.top+rect.height/2,'#ffcf87',true);}
+    for(var i=0;i<8;i++)setTimeout(launch,i*140);
+    setTimeout(function(){burst(W*.25,H*.25,'#9cc3ff',true);burst(W*.75,H*.22,'#ffcf87',true);},350);
+    if(!running){running=true;requestAnimationFrame(loop);}
+  }
+
+  /* ---------- toast ---------- */
+  var toast=document.getElementById('toast');
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},3600);}
+
+  /* ---------- modulo ---------- */
+  var form=document.getElementById('lead-form');
+  var err=document.getElementById('err');
+  var btn=document.getElementById('btn');
+  var spin=document.getElementById('btn-spin');
+  var ic=document.getElementById('btn-ic');
+  var label=document.getElementById('btn-label');
+  var flip=document.getElementById('flip');
+  var front=document.getElementById('form-state');
+  var back=document.getElementById('done-state');
+  var EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  fetch('/api/config').then(function(r){return r.ok?r.json():null}).then(function(c){
+    if(c&&c.privacyEmail){document.getElementById('privacy-contact').textContent=' scrivendo a '+c.privacyEmail;}
+  }).catch(function(){});
+
+  function showError(msg){err.textContent=msg;err.hidden=false;}
+  function setBusy(b){btn.disabled=b;spin.hidden=!b;ic.style.display=b?'none':'';label.textContent=b?'Sblocco in corso':'Sblocca il bonus';}
+
+  function unlock(url,nome){
+    var a=document.getElementById('bonus-link');
+    a.href=url;
+    document.getElementById('done-name').textContent=nome;
+    back.removeAttribute('inert');back.setAttribute('aria-hidden','false');
+    front.setAttribute('inert','');front.setAttribute('aria-hidden','true');
+    fireworks(btn);
+    flip.classList.add('is-open');
+    showToast('Bonus sbloccato, '+nome+'!');
+    setTimeout(function(){document.getElementById('done-title').focus({preventScroll:true});}, reduce?0:700);
+    if(innerWidth<960){setTimeout(function(){flip.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});},reduce?0:300);}
+  }
+  document.getElementById('again').addEventListener('click',function(){fireworks(this);});
+
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    err.hidden=true;
+    var f={nome:form.nome.value.trim(),cognome:form.cognome.value.trim(),email:form.email.value.trim(),website:form.website.value};
+    ['nome','cognome','email'].forEach(function(k){form[k].removeAttribute('aria-invalid');});
+    var bad=[];
+    if(!f.nome)bad.push('nome');
+    if(!f.cognome)bad.push('cognome');
+    if(!EMAIL.test(f.email))bad.push('email');
+    if(bad.length){bad.forEach(function(k){form[k].setAttribute('aria-invalid','true');});
+      showError(bad.indexOf('email')>-1&&bad.length===1?'Controlla l\'indirizzo email: sembra incompleto.':'Compila nome, cognome ed email per continuare.');
+      form[bad[0]].focus();return;}
+    if(!form.consenso.checked){showError('Per ricevere il bonus serve il consenso all\'uso di nome ed email.');form.consenso.focus();return;}
+    setBusy(true);
+    fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(f)})
+      .then(function(r){return r.json().catch(function(){return {ok:false};}).then(function(j){return {status:r.status,body:j};});})
+      .then(function(res){
+        if(res.body&&res.body.ok&&res.body.bonusUrl){ unlock(res.body.bonusUrl,f.nome); }
+        else{ showError((res.body&&res.body.error)||'Non è stato possibile completare l\'invio. Riprova tra qualche istante.'); setBusy(false); }
+      })
+      .catch(function(){showError('Connessione assente o instabile. Controlla la rete e riprova.');setBusy(false);});
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "meno-rumore-bonus",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page per il bonus del libro Meno Rumore in Testa con lo Zen",
+  "engines": { "node": ">=18" }
+}
